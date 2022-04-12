@@ -41,7 +41,7 @@ function App() {
         ]
     })
 
-    let a = 10
+    let a = 11
 
     function removeTask(id: string, todoListId: string) {
         let todoListTasks = tasks[todoListId]
