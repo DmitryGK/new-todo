@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { v1 } from 'uuid';
+import AddItemForm from './AddItemForm';
 import './App.css';
 import { TodoList } from './TodoList';
 
@@ -41,7 +42,7 @@ function App() {
         ]
     })
 
-    let a = 11
+    
 
     function removeTask(id: string, todoListId: string) {
         let todoListTasks = tasks[todoListId]
@@ -79,8 +80,34 @@ function App() {
         setTasks({...tasks})
     }
 
+    function addTodoList(title: string) {
+        let newTodoListId = v1()
+        let newTodoList: TodoListType = {id: newTodoListId, title: title, filter: 'all'}
+        setTodoLists([newTodoList, ...todoLists])
+        setTasks({
+            ...tasks,
+            [newTodoListId]: []
+        })
+    }
+    function changeTaskTitle (id: string, newValue: string, todoListId: string) {
+        let todoListTasks = tasks[todoListId]
+        let task = todoListTasks.find(t => t.id === id)
+        if(task) {
+            task.title = newValue
+            setTasks({...tasks})
+        }
+    }
+    function changeTodoListTitle (newTitle: string, todoListId: string) {
+        let todoList = todoLists.find(tl => tl.id === todoListId)
+        if(todoList){
+            todoList.title = newTitle
+            setTodoLists([...todoLists])
+        }
+    }
+
     return (
         <div className="App">
+            <AddItemForm addItem={addTodoList}/>
             {
                 todoLists.map(tl => {
                     let allTodoListTasks = tasks[tl.id]
@@ -96,9 +123,11 @@ function App() {
                         key={tl.id}
                         title={tl.title}
                         tasks={tasksForTodoList}
+                        changeTodoTitle={changeTodoListTitle}
                         removeTask={removeTask}
                         changeFilter={changeFilter}
                         addTask={addTask}
+                        changeTaskTitle={changeTaskTitle}
                         changeTaskStatus={changeStatus}
                         removeTodoList={removeTodoList}
                         filter={tl.filter}
