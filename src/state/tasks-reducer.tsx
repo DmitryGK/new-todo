@@ -1,13 +1,20 @@
 import { TasksStateType } from "../App";
 
-type ActionsType = {
-
+export type removeTaskActionCreatorType = {
+    type: 'REMOVE-TASK'
+    id: string
+    todoListId: string
 }
+
+type ActionsType = 
+    removeTaskActionCreatorType
+
 
 export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksStateType => {
     switch (action.type) {
-        case '':
-            return state
+        case 'REMOVE-TASK':
+            let todoListTasks = tasks[action.todoListId]       
+               return state
         case '':
             return state
             default :
