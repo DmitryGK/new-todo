@@ -3,11 +3,11 @@ import { AddBox } from '@material-ui/icons';
 import React, { ChangeEvent, useState, KeyboardEvent } from 'react';
 
 
-type AddItemFormPropsType = {
+export type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
 
-function AddItemForm(props: AddItemFormPropsType) {
+export function AddItemForm(props: AddItemFormPropsType) {
     let [title, setTitle] = useState('')
     let [error, setError] = useState<string | null>(null)
 
